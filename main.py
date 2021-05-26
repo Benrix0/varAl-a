@@ -1,5 +1,10 @@
 from random import randint
 from turtle import *
+import turtle
+from tkinter import *
+import convertapi
+
+#Fonctions
 
 def jeu(mise):
     lancer1 = randint(1, 8)
@@ -83,11 +88,21 @@ def visualisationJeux(resultats):
         left(90)
     hideturtle()
     update()
+    ts = turtle.getscreen()
+    ts.getcanvas().postscript(file=("visu.eps"))
+    convertapi.api_secret = 'CK1HeaUvx3hpmBZn'
+    convertapi.convert('jpg', {
+        'File': 'visu.eps'
+    }, from_format = 'eps').save_files('./')
     done()
 
-mise = 10
+#Variables
+
+mise = int(input("Entrer la mise: "))
 X = [mise, 6, -mise]
 P = [1/8, 7/16, 7/16]
+
+#Programme principale
 
 resultats = simNJeux(10, 1000)
 

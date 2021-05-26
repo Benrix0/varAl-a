@@ -2,7 +2,6 @@ from random import randint
 from turtle import *
 import turtle
 from tkinter import *
-import convertapi
 
 #Fonctions
 
@@ -90,10 +89,6 @@ def visualisationJeux(resultats):
     update()
     ts = turtle.getscreen()
     ts.getcanvas().postscript(file=("visu.eps"))
-    convertapi.api_secret = 'CK1HeaUvx3hpmBZn'
-    convertapi.convert('jpg', {
-        'File': 'visu.eps'
-    }, from_format = 'eps').save_files('./')
     done()
 
 #Variables

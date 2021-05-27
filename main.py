@@ -2,6 +2,8 @@ from random import randint
 from turtle import *
 import turtle
 from tkinter import *
+from PIL import Image
+import os
 
 #Fonctions
 
@@ -54,11 +56,12 @@ def visualisationJeux(resultats):
         Nomsresultats.append(resultat)
     Nomsresultats = sorted(Nomsresultats)
     setup(startx=0, starty=0)
+    screensize(1000, 1000)
     title("Pour {} parties".format(n))
     tracer(0, 0)
-    speed(0)
     setworldcoordinates(-5, -5, 110, 110)
     forward(100)
+    pen(pensize=3)
     setpos(0, 0)
     left(90)
     forward(100)
@@ -73,10 +76,10 @@ def visualisationJeux(resultats):
         penup()
         left(90)
         forward(5)
-        write(resultat, align="center")
+        write(resultat, align="center", font=("Calibri", 16, "bold"))
         left(180)
         forward(5 + (((resultats[resultat] * 100) / n) / 2))
-        write(resultats[resultat], align="center")
+        write(resultats[resultat], align="center", font=("Calibri", 16, "bold"))
         left(180)
         forward(((resultats[resultat] * 100) / n) / 2)
         right(90)
@@ -89,16 +92,22 @@ def visualisationJeux(resultats):
     update()
     ts = turtle.getscreen()
     ts.getcanvas().postscript(file=("visu.eps"))
+    imgEPS = Image.open("visu.eps")
+    converted = imgEPS.convert('RGBA')
+    converted.save("visu.png")
+    imgEPS.close()
+    os.remove("visu.eps")
     done()
 
 #Variables
 
-mise = int(input("Entrer la mise: "))
+#mise = int(input("Entrer la mise: "))
+mise = 10
 X = [mise, 6, -mise]
 P = [1/8, 7/16, 7/16]
 
 #Programme principale
 
-resultats = simNJeux(10, 1000)
+resultats = simNJeux(10, 10000)
 
 visualisationJeux(resultats)

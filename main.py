@@ -95,6 +95,7 @@ def visualisationJeux(resultats):
     imgEPS = Image.open("visu.eps")
     converted = imgEPS.convert('RGBA')
     converted.save("visu.png")
+    converted.close()
     imgEPS.close()
     os.remove("visu.eps")
     done()
